@@ -4,21 +4,21 @@ services:
   - docker
 
 before_intall:
-  - docker build -t hubner18/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t ljulc/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true hubner18/react-test npm test
+  - docker run -e CI=true ljulc/react-test npm test
 
 after_success:
-  - docker build -t hubner18/multi-client ./client
-  - docker build -t hubner18/multi-nginx ./nginx
-  - docker build -t hubner18/multi-server ./server
-  - docker build -t hubner18/multi-worker ./worker
+  - docker build -t ljulc/multi-client ./client
+  - docker build -t ljulc/multi-nginx ./nginx
+  - docker build -t ljulc/multi-server ./server
+  - docker build -t ljulc/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and puths them to docker hub
-  - docker push hubner18/multi-client
-  - docker push hubner18/multi-nginx
-  - docker push hubner18/multi-server
-  - docker push hubner18/multi-worker
+  - docker push ljulc/multi-client
+  - docker push ljulc/multi-nginx
+  - docker push ljulc/multi-server
+  - docker push ljulc/multi-worker
   
