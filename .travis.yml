@@ -14,4 +14,11 @@ after_success:
   - docker build -t hubner18/multi-nginx ./nginx
   - docker build -t hubner18/multi-server ./server
   - docker build -t hubner18/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and puths them to docker hub
+  - docker push hubner18/multi-client
+  - docker push hubner18/multi-nginx
+  - docker push hubner18/multi-server
+  - docker push hubner18/multi-worker
   
