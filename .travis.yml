@@ -10,15 +10,15 @@ script:
   - docker run -e CI=true ljulc/react-test npm test
 
 after_success:
-  - docker build -t ljulc/multi-client ./client
   - docker build -t ljulc/multi-nginx ./nginx
   - docker build -t ljulc/multi-server ./server
   - docker build -t ljulc/multi-worker ./worker
+  - docker build -t ljulc/multi-client ./client
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and puths them to docker hub
-  - docker push ljulc/multi-client
   - docker push ljulc/multi-nginx
   - docker push ljulc/multi-server
   - docker push ljulc/multi-worker
+  - docker push ljulc/multi-client
   
