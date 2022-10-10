@@ -1,0 +1,17 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_intall:
+  - docker build -t hubner18/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true hubner18/react-test npm test
+
+after_success:
+  - docker build -t hubner18/multi-client ./client
+  - docker build -t hubner18/multi-nginx ./nginx
+  - docker build -t hubner18/multi-server ./server
+  - docker build -t hubner18/multi-worker ./worker
+  
